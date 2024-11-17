@@ -17,6 +17,7 @@ export default function Protect({children}){
     const mySession = checkSession()
     if(!mySession){
         navigate("/login")
+        return
     }
     return children;
 }

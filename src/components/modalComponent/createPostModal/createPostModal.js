@@ -101,7 +101,7 @@ const Label = styled.label`
 `
 export default function CreatePostModal({closeModal}){
     const [ Modal, setModal] = useState(false)
-    const [ state, setState] = useState("게시글 만들기")
+    const [ state, setState] = useState("게시글  만들기")
     const [ photos, setPhoto] = useState([])
     const [ article, setArticle ] = useState(false)
 
@@ -162,7 +162,7 @@ export default function CreatePostModal({closeModal}){
                             <MdOutlineAddPhotoAlternate size={30}/>
                             <Title style={{fontSize:'22px'}}>사진을 선택해주세요</Title>
                             <Photo type="file" multiple id="photo" onChange={insertPhoto}/>
-                            <Label htmlFor="photo" >사진 가져오기</Label>
+                            <Label htmlFor="photo">사진 가져오기</Label>
                         </PhotoUploadArea>}
                         {article ? <CreatePostArticle/>:null}
                 </Box>
