@@ -35,14 +35,12 @@ const Icon = styled.div`
 // 사진을 클릭하면 해당페이지로 이동하기
 export default function ProfilePostPhotoBox({postImage}){
     const [ modal, setModal] = useState(false)
-    const [ post, setPost ] = useState({})
-    const [ comment, setComment] = useState({})
+    const [ post, setPost ] = useState()
     
     console.log('props',postImage)
 
     const getPostInf = (e)=>{
         const postId = e.target.id;
-        setModal(true)
         fetch(`http://localhost:8080/api/post/${postId}`,{
             credentials:'include'
         })
@@ -55,25 +53,26 @@ export default function ProfilePostPhotoBox({postImage}){
         })
         .then((response)=>{
             setPost(response)
+            console.log(response)
+            setModal(true)
         })
-        fetch(`http://localhost:8080/api/comment/${postId}/0`,{
-            credentials:'include'
-        })
-        .then((response)=>{
-            if(response){
-                return response.json()
-            }else{
-                console.log('error')
-            }
-        })
-        .then((response)=>{
-            setComment(response)
-        })
+        // fetch(`http://localhost:8080/api/comment/${postId}/0`,{
+        //     credentials:'include'
+        // })
+        // .then((response)=>{
+        //     if(response){
+        //         return response.json()
+        //     }else{
+        //         console.log('error')
+        //     }
+        // })
+        // .then((response)=>{
+        //     setComment(response)
+        // })
     }
 
     const closeModal = () =>{
         setModal(false)
-        setComment({})
         setPost({})
     }
     return(
@@ -83,7 +82,7 @@ export default function ProfilePostPhotoBox({postImage}){
                     <Img src={item.postImage} alt="error" onClick={getPostInf} id={item.postId}/>
                     {item.mixed ? <Icon>< IoMdPhotos size={20} opacity={0.7} color="white"/></Icon>:null}
                 </PostImageBox>))}
-                {modal ? <Screen closeScreen={closeModal} post={post} postComment={comment}/>:null}
+                {modal ? <Screen closeScreen={closeModal} post={post}/>:null}
         </Wrap>
     );
 }

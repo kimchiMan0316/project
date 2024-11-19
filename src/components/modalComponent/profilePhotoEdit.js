@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { MdOutlineAddAPhoto } from "react-icons/md";
+import { useState } from "react";
 
 const Wrap = styled.div`
     z-index: 1000;
@@ -22,16 +23,16 @@ const CloseDiv = styled.div`
 const Conteiner = styled.div`
     z-index: 1002;
     border-radius: 16px;
-    width: 500px;
-    height: 600px;
+    width: 400px;
+    height: 500px;
     background-color: white;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
 `
-const Button = styled.div`
-    transition: all 0.3s ease-in-out;
+const Button = styled.label`
+    /* transition: all 0.3s ease-in-out; */
     width: 110px;
     height: 26px;
     border: none;
@@ -40,25 +41,27 @@ const Button = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #3182f6;
+    background-color: #0095f6;
     color: white;
     cursor: pointer;
     &:hover{
-        background-color: #2465c0;
+        opacity: 0.8;
     }
 `
 const IconBox = styled.div`
-
+    margin: 40px 0;
 `
 
 
 export default function EditProfilePhoto({closeModal,profilePhoto}){
+    const [photo, setPhoto] = useState()
     return(
         <Wrap>
             <CloseDiv onClick={closeModal}></CloseDiv>
             <Conteiner>
                 <IconBox><MdOutlineAddAPhoto size={60}/></IconBox>
-                <Button>사진 가져오기</Button>
+                <input type="file" id="photo" style={{display:'none'}}/>
+                <Button htmlFor="photo">사진 가져오기</Button>
             </Conteiner>
         </Wrap>
     );

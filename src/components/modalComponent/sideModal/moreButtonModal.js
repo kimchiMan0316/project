@@ -68,6 +68,7 @@ export default function MoreButtonModal({closeModal}){
         .then((response)=>{
             if(!response.ok){
                 console.log('로그아웃 실패')
+                return
             }
             navigate("/login")
         })
