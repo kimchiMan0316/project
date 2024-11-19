@@ -35,7 +35,7 @@ const Title = styled.div`
     text-align: center;
     padding: 10px 0;
     margin-bottom: 10px;
-    border-bottom: 2px solid gray;
+    border-bottom: 1px solid gray;
     font-size: 15px;
 `
 const Button = styled.div`

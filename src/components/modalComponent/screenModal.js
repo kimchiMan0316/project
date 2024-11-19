@@ -1,7 +1,7 @@
 import styled from "styled-components"
 import CommentBox from "../LayoutComponrnt/commentComponent"
 import LoginInput from "../InputComponent/Login/logininput"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { SlOptions } from "react-icons/sl";
 import { FaRegBookmark } from "react-icons/fa6";
 import { FaHeart } from "react-icons/fa";
@@ -11,6 +11,7 @@ import EditPost from "./editPost";
 import { useNavigate } from "react-router-dom";
 import logo from "../../assets/image/untityLogo.png"
 import HomePhotoBox from "../LayoutComponrnt/homePhoto";
+import { GoPlusCircle } from "react-icons/go";
 
 const Wrap = styled.div`
     z-index: 1000;
@@ -85,6 +86,13 @@ const Content = styled.div`
 const Comment = styled.div`
     margin: 10px;
 `
+const SetOffset = styled.div`
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0;
+`
 const CreateCommentArea = styled.div`
     display: flex;
     justify-content: start;
@@ -142,17 +150,27 @@ const Label = styled.label`
         background-color: gray;
     }
 `
-export default function Screen({closeScreen, post, postComment}){
+export default function Screen({closeScreen, post}){
     // post는 게시글 데이터의 깊은 복사본
-    const comment = postComment.comments || [];
+    const [ comment, setCommet] = useState([])
     const [review, setReview] = useState("");
     const [ likes, setLikes] = useState(post.likes);
     const [ liked, setLiked ] = useState(post.liked);
     const [ editPost, setEditPost ] = useState(false);
+    const [ offset, setOffset ] = useState(10)
     const navigate = useNavigate();
     
     console.log(post)
-    console.log(post.Comment)
+
+    useEffect(()=>{
+        fetch(`http://localhost:8080/api/comment/${post.id}/0`,{
+            credentials:'include'
+        })
+        .then((response)=>response.json())
+        .then((data)=>{
+            setCommet(data.comments)
+        })
+    },[])
 
     const closeEditPost = () =>{
         setEditPost(false)
@@ -176,13 +194,24 @@ export default function Screen({closeScreen, post, postComment}){
                 article: review
             })
             })
-            .then((Response)=>Response.json())
+            .then((Response)=>{
+                if(Response.ok){
+                    return Response.json()
+                }else{
+                    alert("오류")
+                    return
+                }
+            })
             .then((data)=>{
-
-                console.log(data);
-                comment.unshift({...data})
-                setReview("")
-        })
+                if(data){
+                    console.log(data);
+                    comment.unshift({...data})
+                    setReview("")
+                }else{
+                    setReview("")
+                    return
+                }
+            })
     }
     // 사용자 경험을 위한 똥꼬쇼 좋아요 부분
     const onClikeLike = () =>{
@@ -211,6 +240,7 @@ export default function Screen({closeScreen, post, postComment}){
         const USERNAME = localStorage.getItem('username');
         if(USERNAME == post.username){
             navigate("/profile")
+            return
         }else{
             navigate(`/profile/${post.username}`)
         }
@@ -221,7 +251,23 @@ export default function Screen({closeScreen, post, postComment}){
         }
         setEditPost(true)
     }
-
+    // 댓글 더보기
+    const showComment = () =>{
+        fetch(`http://localhost:8080/api/comment/${post.id}/${offset}`,{
+            credentials:'include'
+        })
+        .then((Response)=>{
+            if(!Response.ok){
+                return
+            }
+            return Response.json()
+        })
+        .then((response)=>{
+            console.log(response)
+            setCommet((prev=>[...prev,...response.comments]))
+            setOffset(prev=>prev+10)
+        })
+    }
     return(
         <Wrap>
             <CloseBox onClick={closeScreen}></CloseBox>
@@ -252,8 +298,9 @@ export default function Screen({closeScreen, post, postComment}){
                             <Date>{`${formatTime(post.createTime)}`}</Date>
                         </Content>
                         <Comment>
-                            {comment.map((item)=>(<CommentBox key={item.commentId} comment={item} postId={post.id}/>))}
+                            {comment.map((item)=>(<CommentBox closeScreen={closeScreen} key={item.commentId} comment={item} postId={post.id}/>))}
                         </Comment>
+                        {post.countComment-offset > 0 ?  <SetOffset><GoPlusCircle size={20} style={{cursor:'pointer'}} onClick={showComment}/></SetOffset>:null}
                     </Article>
                     <CreateCommentArea>
                         <ButtonArea>

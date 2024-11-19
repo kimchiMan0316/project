@@ -119,7 +119,7 @@ export default function HomeContentsBox({item}){
     const navigate = useNavigate()
     const [ comment, setComment] =useState("");
     const [ screen, setScreen] = useState(false)
-    const [ postComment, setPostComment] = useState({})
+    // const [ postComment, setPostComment] = useState({})
     // 게시글 내용 깊은 복사 좋아요, 댓글 수 조정
     const post = JSON.parse(JSON.stringify(item));
     const [ likes, setLikes] = useState(post.likes);
@@ -133,6 +133,7 @@ export default function HomeContentsBox({item}){
     const moveProfile = () =>{
         if(item.me){
             navigate('/profile')
+            return
         }
         navigate(`/profile/${post.username}`)
     }
@@ -193,14 +194,14 @@ export default function HomeContentsBox({item}){
     }
     // 스크린 모달 띄우기
     const onScreen = () =>{
-        fetch(`http://localhost:8080/api/comment/${post.id}/0`,{
-            credentials:'include'
-        })
-        .then((response)=>response.json())
-        .then((data)=>{
-            console.log(data)
-            setPostComment(data)
-        })
+        // fetch(`http://localhost:8080/api/comment/${post.id}/0`,{
+        //     credentials:'include'
+        // })
+        // .then((response)=>response.json())
+        // .then((data)=>{
+        //     console.log(data)
+        //     setPostComment(data)
+        // })
         setScreen(true)
     }
     // 글 삭제 모달
@@ -281,7 +282,7 @@ export default function HomeContentsBox({item}){
                     </Form>
                 </Acticle>
             </ArticleLayer>
-            {screen ? <Screen closeScreen={closeScreen} post={post} postComment={postComment}/>:""}
+            {screen ? <Screen closeScreen={closeScreen} post={post}/>:""}
         </Wrap>
     )
 }

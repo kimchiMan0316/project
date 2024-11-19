@@ -9,7 +9,12 @@ const usePost = create((set)=>(
             fetch(`http://localhost:8080/api/home/${usePost.getState().offset}`,{
                 credentials:'include'
             })
-            .then((response)=>response.json())
+            .then((response)=>{
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json()
+            })
             .then((data)=>{
                 console.log(data)
                 set((state)=>({post: [...state.post,...data]}))

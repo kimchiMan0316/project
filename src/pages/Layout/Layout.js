@@ -12,7 +12,6 @@ import { useEffect, useState } from "react";
 import { IoIosHeartEmpty } from "react-icons/io";
 import useProfileStore from "../../store/useProfile";
 import CreatePostModal from "../../components/modalComponent/createPostModal/createPostModal";
-
 import logoImg from "../../assets/image/untityLogo.png"
 import OptionModal from "../../components/modalComponent/sideModal/optionModal";
 import MoreButtonModal from "../../components/modalComponent/sideModal/moreButtonModal";
@@ -21,7 +20,6 @@ import MoreButtonModal from "../../components/modalComponent/sideModal/moreButto
 
 const Wrap = styled.div`
     display: flex;
-
 `
 const TopLayout = styled.div`
     background-color: aqua;
@@ -114,7 +112,7 @@ export default function Layout(){
                     <ButtonComponent value="게시글 작성" icon={<LuPlusSquare size={24} />} onClick={openCreatePostModal}/>
                     <Conteiner>
                         <P>개인설정</P>
-                        <ButtonComponent value="프로필" icon={<Profile/>}  onClick={()=>{navigate("/profile")}}/>
+                        <ButtonComponent value="프로필" icon={<Profile userInf={userProfile}/>}  onClick={()=>{navigate("/profile")}}/>
                     </Conteiner>
                 </Top>
                 <Bottom>

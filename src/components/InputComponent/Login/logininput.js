@@ -20,7 +20,7 @@ const Input = styled.input`
     }
 `
 
-export default function LoginInput({type, width, fontWeight, height, fontSize, value, onChange, placeholder, onClick, padding, backgroundColor,margin , color, marginBottom, minLength,border}){
+export default function LoginInput({type, width, fontWeight, height, fontSize, value, onChange, placeholder, onClick, padding, backgroundColor,margin , color, marginBottom, minLength,border,autocomplete}){
     const option = {
         width: width,
         height: height,
@@ -35,6 +35,6 @@ export default function LoginInput({type, width, fontWeight, height, fontSize, v
         fontWeight:fontWeight,
     }
     return(
-        <Input onChange={onChange} type={type} style={option} value={value} placeholder={placeholder} onClick={onClick} minLength={minLength}/>
+        <Input onChange={onChange} autocomplete={autocomplete} type={type} style={option} value={value} placeholder={placeholder} onClick={onClick} minLength={minLength}/>
     )
 }

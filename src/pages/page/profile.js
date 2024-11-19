@@ -7,6 +7,7 @@ import ProfileEditButton from "../../components/button/profileEditButton";
 import UnFollowModal from "../../components/modalComponent/unFollowModal";
 
 import img from "../../assets/image/nerd.JPEG"
+import EditProfilePhoto from "../../components/modalComponent/profilePhotoEdit";
 
 const Wrap = styled.div`
     padding-left: 250px;
@@ -23,7 +24,6 @@ const ProfileArea = styled.div`
     align-items: center;
     justify-content: center;
     flex-direction: column;
-
     width: 700px;
     height: 300px;
 `
@@ -91,10 +91,10 @@ export default function Profile(){
     const [ followed, setFollowed ] = useState(userInf.followed);
     const [ followState, setFollowState ] = useState();
     const [ followList , setFollowList ] = useState(false);
+    const [ profilePhotoEditModal, setProfilePhotoEditModal] = useState(false);
 
     console.log(userInf)
     const closeFollowModal = () =>{
-
         setFollowList(false)
     }
     const getFollowerList = () =>{
@@ -132,12 +132,17 @@ export default function Profile(){
             }
         })
     }
+
+    const closeProfilePhotoEditModal = () => {
+        setProfilePhotoEditModal(false)
+    }
     return(
         <Wrap>
             <ProfileArea>
                 <div style={{display:'flex'}}>
                     <ProfileImage>
-                        <img src={img} style={{width:'100%', height:'100%'}}/>
+                        <img src={img} onClick={()=>setProfilePhotoEditModal(true)} style={{width:'100%', height:'100%',cursor:'pointer'}}/>
+                        {profilePhotoEditModal ? <EditProfilePhoto closeModal={closeProfilePhotoEditModal} ProfilePhoto={img}/>:null}
                     </ProfileImage>
                     <ProfileInf>
                         <UsernameInf>

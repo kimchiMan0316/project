@@ -9,6 +9,7 @@ export default function Protect({children}){
         if(response.status == 200){
             
         }else{
+            localStorage.removeItem("username");
             console.log(response)
             navigate("/login")
             return false
@@ -17,7 +18,6 @@ export default function Protect({children}){
     const mySession = checkSession()
     if(!mySession){
         navigate("/login")
-        return
     }
     return children;
 }

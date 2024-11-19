@@ -102,8 +102,6 @@ export default function HomePhotoBox({postImage ,width, height}){
     postImage = postImage || []
     const [ move , setMove] = useState(0)
 
-    console.log(postImage)
-
     const moveLeft = () =>{
         if(move === -(width*(postImage.length-1))){
             return;

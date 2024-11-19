@@ -23,6 +23,8 @@ const Wrap = styled.div`
 const ProfileImage = styled.div`
     width: 45px;
     height: 45px;
+    min-height: 45px;
+    min-width: 45px;
     border: 1px solid gray;
     overflow: hidden;
     border-radius: 50%;
@@ -46,11 +48,14 @@ const CommentInf = styled.div`
 const Username = styled.div`
     margin-right: 10px;
     font-weight: 600;
-    font-size: 17px;
+    font-size: 16px;
     cursor: pointer;
 `
 const Date = styled.div``
-const Comment = styled.div``
+const Comment = styled.span`
+    font-weight: 400;
+    font-size: 14px;
+`
 const Recomment = styled.div`
     margin: 0 6px;
     cursor: pointer;
@@ -72,13 +77,12 @@ const Form = styled.form`
     display: flex;
     align-items: center;
 `
-export default function CommentBox({comment, postId}){
+export default function CommentBox({closeScreen ,comment, postId}){
     const [ReCommentState, setReCommentState] = useState(false)
     const [ReComments, setReComments] = useState([])
     const [RecommentForm, setRecommentForm] = useState(false)
     const [createRecomment, setcreateRecomment] = useState("")
     const navigate = useNavigate();
-    console.log(comment)
 
     const fetchRecomment = () =>{
         fetch(`http://localhost:8080/api/recomment/${postId}/${comment.commentId}/0`,{
@@ -93,6 +97,7 @@ export default function CommentBox({comment, postId}){
     }
     const moveProfile = () =>{
         const USERNAME = localStorage.getItem('username');
+        closeScreen()
         if(USERNAME == comment.username){
             navigate("/profile")
         }else{
@@ -133,8 +138,7 @@ export default function CommentBox({comment, postId}){
                 </ProfileImage>
                 <ProfileArea>
                     <UserInf>
-                        <Username onClick={moveProfile}>{comment.username}</Username>
-                        <Comment>{comment.article}</Comment>
+                        <Username onClick={moveProfile}>{comment.username} <Comment>{comment.article}</Comment></Username>
                     </UserInf>
                     <CommentInf>
                         <div style={{display:'flex', width:'100%',fontSize:"14px", color:"rgb(120 118 118)"}}>

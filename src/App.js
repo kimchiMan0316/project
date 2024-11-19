@@ -12,9 +12,11 @@ const GrobalStyle = createGlobalStyle`
   }
   body{
     color: #212527;
+    overflow-x: hidden
   }
 `
 const Wrap = styled.div`
+
 `
 
 function App() {

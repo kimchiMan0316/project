@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import { IoPersonCircleOutline } from "react-icons/io5";
-import { IoLogOutOutline } from "react-icons/io5";
 import { CiBookmark } from "react-icons/ci";
 import { useNavigate } from "react-router-dom";
+import { IoMdInformationCircle } from "react-icons/io";
+import { TbMessageReportFilled } from "react-icons/tb";
 
 
 const Wrap = styled.div`
@@ -78,8 +78,8 @@ export default function MoreButtonModal({closeModal}){
             <CloseDiv onClick={closeModal}></CloseDiv>
             <Conteiner>
                 <Title>더보기</Title>
-                <Button onClick={handleEditPost}><IoPersonCircleOutline style={{margin:"0 10px"}}/>문의하기</Button>
-                <Button onClick={handleBookMark}><CiBookmark style={{margin:"0 10px"}}/>신고하기</Button>
+                <Button onClick={handleEditPost}><IoMdInformationCircle size={20} style={{margin:"0 10px",color:'gray'}}/>문의하기</Button>
+                <Button onClick={handleBookMark}><TbMessageReportFilled size={20} style={{margin:"0 10px",color:"#dc2d2d"}}/>신고하기</Button>
             </Conteiner>
         </Wrap>
     );

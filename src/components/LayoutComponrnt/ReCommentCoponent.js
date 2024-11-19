@@ -13,6 +13,8 @@ const Wrap = styled.div`
 const ProfileImage = styled.div`
     width: 36px;
     height: 36px;
+    min-height: 36px;
+    min-width: 36px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -24,6 +26,14 @@ const Profile= styled.div`
     flex-direction: column;
     margin: 0 10px;
 `
+const P = styled.span`
+    font-size: 16px;
+    font-weight: 600;
+    &[name='sub']{
+        font-size: 14px;
+        font-weight: 400;
+    }
+`
 
 export default function ReCommentComponent({item}){
     console.log(item)
@@ -34,8 +44,7 @@ export default function ReCommentComponent({item}){
             </ProfileImage>
             <Profile>
                 <div style={{display:'flex'}}>
-                    <p style={{marginRight:'10px',fontWeight:'600'}}>{item.username}</p>
-                    <p>{item.article}</p>
+                    <P style={{marginRight:'10px',fontWeight:'600'}}>{item.username} <P name="sub">{item.article}</P></P>
                 </div>
                 <div>
                     <p style={{fontSize:'14px',color:'gray'}}>{formatTime(item.date)}</p>

@@ -28,7 +28,7 @@ const Conteiner = styled.div`
     z-index: 1002;
     border-radius: 16px;
     width: auto;
-    height: 700px;
+    height: 630px;
     background-color: white;
     display: flex;
     align-items: center;
@@ -58,7 +58,7 @@ const Button = styled.div`
 `
 const Box = styled.div`
     transition: all 0.2s ease-in-out;
-    width: ${(props)=>(props.article ? "980px":"680px")};
+    width: ${(props)=>(props.state === "게시글 작성하기" ? "980px":"680px")};
     height: 630px;
     background-color: white;
     display: flex;
@@ -101,7 +101,7 @@ const Label = styled.label`
 `
 export default function CreatePostModal({closeModal}){
     const [ Modal, setModal] = useState(false)
-    const [ state, setState] = useState("게시글  만들기")
+    const [ state, setState] = useState("게시글 만들기")
     const [ photos, setPhoto] = useState([])
     const [ article, setArticle ] = useState(false)
 
@@ -119,9 +119,10 @@ export default function CreatePostModal({closeModal}){
     // 사진 없는 첫화면으로 가기
     const backState = () =>{
         setPhoto([])
-        setState("게시글만들기")
+        setState("게시글 만들기")
     }
     const backArticle = () =>{
+        setState("사진 편집")
         setArticle(false)
     }
     const back = () =>{
@@ -140,10 +141,14 @@ export default function CreatePostModal({closeModal}){
     }
     // 게시글 작성하기
     const createArticle = () =>{
-        setArticle(true)
         setState("게시글 작성하기")
+        setTimeout(() => {
+            setArticle(true)
+        }, 300);
     }
-
+    
+    
+ 
     return(
         <Wrap>
             <CloseDiv onClick={openModal}></CloseDiv>
@@ -154,7 +159,7 @@ export default function CreatePostModal({closeModal}){
                     <Title>{state}</Title>
                     {photos.length ? <Button name="next" onClick={createArticle}>다음</Button>:null}
                 </OptionLayer>
-                <Box article={article}>
+                <Box state={state}>
                     {photos.length ? 
                         <EditPhoto photos={photos}/>
                         :

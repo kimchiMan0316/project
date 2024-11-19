@@ -74,6 +74,21 @@ export default function Login(){
     const [password, setPassword] = useState()
     const navigate = useNavigate()
     
+    const Session = localStorage.getItem('username')
+    if(Session){
+        fetch('http://localhost:8080/api/checkSession',{
+            credentials:'include'
+        })
+        .then((response)=>{
+            if(!response.ok){
+                return
+            }else if(response.ok){
+                navigate('/')
+                return
+            }
+        })
+    }
+
     const onChangeId =(e)=>{
         const value = e.target.value;
         setId(value)
@@ -106,11 +121,17 @@ export default function Login(){
         .then((response)=>{
             if(response.status === 200){
                 console.log(response)
-                return navigate('/')
+                
+                return response.json()
             }else{
                 alert("로그인 정보를 다시 확인해주세요.")
                 return;
             }
+        })
+        .then((response)=>{
+            localStorage.setItem("username",`${response.username}`)
+            console.log(response)
+            navigate("/")
         })
     }
     return(

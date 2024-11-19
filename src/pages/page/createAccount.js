@@ -156,14 +156,11 @@ export default function CreateAccount(){
         })
         .then((response)=>{
             if(response.ok){
+                navigate('/login')
                 return response.json()
             } else{
                 throw new Error('회원가입 실패');
             }
-        })
-        .then((response)=>{
-            console.log(response)
-            navigate("/login")
         })
         .catch((error)=>{
             console.error(error)
@@ -176,7 +173,7 @@ export default function CreateAccount(){
                 <img src={logo} style={{width:"260px", cursor:"pointer"}} onClick={()=>navigate("/login")}/>
                 <P>운티티에서 친구들과 소통해요.</P>
                 <LoginInput type="text" width="300px" height="40px" padding="0 8px" placeholder="아이디" value={username} onChange={handleUsername} minLength={6}/>
-                <LoginInput type="password" width="300px" height="40px" padding="0 8px" placeholder="비밀번호" value={password} onChange={handlePassword} minLength={6}/>
+                <LoginInput type="password" width="300px"  autocomplete="current-password"  height="40px" padding="0 8px" placeholder="비밀번호" value={password} onChange={handlePassword} minLength={6}/>
                 <LoginInput type="text" width="300px" height="40px" padding="0 8px" placeholder="이메일" value={email} onChange={handleEmail}/>
                 <div style={{width:"300px",display:"flex",justifyContent:"right"}}>
                     { email.length >=1 ? <LoginInput

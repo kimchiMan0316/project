@@ -17,7 +17,7 @@ const useProfileStore = create((set)=>(
             })
             .then((response)=>{
                 set(()=>({userProfile : {response}}))
-                localStorage.setItem("username",response.username);
+                // localStorage.setItem("username",response.username);
             })
         }
     }
