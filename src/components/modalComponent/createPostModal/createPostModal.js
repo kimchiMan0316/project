@@ -146,8 +146,6 @@ export default function CreatePostModal({closeModal}){
             setArticle(true)
         }, 300);
     }
-    
-    
  
     return(
         <Wrap>

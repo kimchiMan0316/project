@@ -169,7 +169,7 @@ export default function CreateAccount(){
 
     return(
         <Wrap>
-            <Box onSubmit={handleSignIn}>
+            <Box onSubmit={handleSignIn} encType="multipart/form-data">
                 <img src={logo} style={{width:"260px", cursor:"pointer"}} onClick={()=>navigate("/login")}/>
                 <P>운티티에서 친구들과 소통해요.</P>
                 <LoginInput type="text" width="300px" height="40px" padding="0 8px" placeholder="아이디" value={username} onChange={handleUsername} minLength={6}/>

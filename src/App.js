@@ -1,7 +1,7 @@
 import { RouterProvider } from "react-router-dom";
 import styled, { createGlobalStyle } from "styled-components";
 import { router } from "./pages/router";
-import { formatTime } from "./utills/formatTime";
+import 'react-image-crop/dist/ReactCrop.css';
 
 const GrobalStyle = createGlobalStyle`
   *{

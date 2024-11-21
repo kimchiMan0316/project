@@ -135,7 +135,8 @@ const Button = styled.div`
     border-radius: 8px;
     cursor: pointer;
     &:hover{
-        background-color: gray;
+        opacity: 0.8;
+        background-color: #d9d9d9;
     }
 `
 const Label = styled.label`

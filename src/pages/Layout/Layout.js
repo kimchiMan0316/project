@@ -112,7 +112,7 @@ export default function Layout(){
                     <ButtonComponent value="게시글 작성" icon={<LuPlusSquare size={24} />} onClick={openCreatePostModal}/>
                     <Conteiner>
                         <P>개인설정</P>
-                        <ButtonComponent value="프로필" icon={<Profile userInf={userProfile}/>}  onClick={()=>{navigate("/profile")}}/>
+                        <ButtonComponent value="프로필" icon={<Profile ProfileImage={userProfile.ProfileImage}/>}  onClick={()=>{navigate("/profile")}}/>
                     </Conteiner>
                 </Top>
                 <Bottom>
@@ -154,7 +154,7 @@ export default function Layout(){
     )
 }
 
-const Profile = ({Profile}) =>{
+const Profile = ({profileImage}) =>{
     return(
         <div style={{
             border:"1px solid black",
@@ -162,7 +162,7 @@ const Profile = ({Profile}) =>{
             width:"26px",
             height:"26px"
         }}>
-            <img style={{width:"100%"}} src={logoImg}/>
+            <img style={{width:"100%"}} src={profileImage || logoImg}/>
         </div>
     )
 }

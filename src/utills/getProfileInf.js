@@ -1,7 +1,7 @@
 export const fetchProfileInf = async({params}) =>{
     const username = params.username;
     const storeUsername = localStorage.getItem('username');
-    if(!username || storeUsername == username){
+    if(!username || storeUsername === username){
         const response = await fetch("http://localhost:8080/api/user",{
           credentials:"include"
         });
@@ -16,5 +16,5 @@ export const fetchProfileInf = async({params}) =>{
       }
       const data = await response.json();
       return data; 
-        }
+    }
 }

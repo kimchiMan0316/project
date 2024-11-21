@@ -2,6 +2,8 @@ import { useLoaderData } from "react-router-dom";
 import styled from "styled-components";
 import { Footer } from "../../components/LayoutComponrnt/LayoutComponent";
 import nerd from "../../assets/image/nerd.JPEG";
+import { useState } from "react";
+import EditProfilePhoto from "../../components/modalComponent/editProfile_photo/profilePhotoEdit";
 
 const Wrap = styled.div`
     padding-left: 250px;
@@ -15,7 +17,7 @@ const Wrap = styled.div`
     background-color: white;
 `
 const Title = styled.p`
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 600;
 `
 const Conteiner = styled.div`
@@ -75,16 +77,24 @@ const Conteiner2 = styled(Conteiner)`
 `
 export default function EditProfile(){
     const userinf = useLoaderData();
+    const [ modal, setModal ] = useState(false)
+    
     console.log(userinf)
+    console.log(modal)
+
+    const closeModal = () =>{
+        setModal(false)
+    }
     return(
         <Wrap>
             <Title>프로필 설정</Title>
             <Conteiner>
                 <Box>
                     <ImageArea>
-                        <Image>
+                        <Image onClick={()=>setModal(true)}>
                             <img src={nerd} style={{width:'100%',height:'100%'}}/>
                         </Image>
+                        {modal ? <EditProfilePhoto closeModal={closeModal}/>:null}
                     </ImageArea>
                     <UserInf>
                         <P>이름</P>

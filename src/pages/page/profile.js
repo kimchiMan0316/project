@@ -7,7 +7,8 @@ import ProfileEditButton from "../../components/button/profileEditButton";
 import UnFollowModal from "../../components/modalComponent/unFollowModal";
 
 import img from "../../assets/image/nerd.JPEG"
-import EditProfilePhoto from "../../components/modalComponent/profilePhotoEdit";
+import EditProfilePhoto from "../../components/modalComponent/editProfile_photo/profilePhotoEdit";
+import useProfileStore from "../../store/useProfile";
 
 const Wrap = styled.div`
     padding-left: 250px;
@@ -87,13 +88,16 @@ const FollowButton = styled(ProfileEdit)`
     color: #363636;
 `
 export default function Profile(){
-    const userInf = useLoaderData();
+    let userInf = useLoaderData();
+    const { userProfile } = useProfileStore()
     const [ followed, setFollowed ] = useState(userInf.followed);
     const [ followState, setFollowState ] = useState();
     const [ followList , setFollowList ] = useState(false);
     const [ profilePhotoEditModal, setProfilePhotoEditModal] = useState(false);
 
-    console.log(userInf)
+    useEffect(() => {
+        setFollowed(userInf.followed);
+    }, [userInf]);
     const closeFollowModal = () =>{
         setFollowList(false)
     }
@@ -132,16 +136,24 @@ export default function Profile(){
             }
         })
     }
+    // 본인일 때만 프로필 사진 변경
+    const Edit_prfile_photo = () =>{
+        if(userInf.me){
+            setProfilePhotoEditModal(true)
+        }
+        return;
+    }
 
     const closeProfilePhotoEditModal = () => {
         setProfilePhotoEditModal(false)
     }
+
     return(
         <Wrap>
             <ProfileArea>
                 <div style={{display:'flex'}}>
                     <ProfileImage>
-                        <img src={img} onClick={()=>setProfilePhotoEditModal(true)} style={{width:'100%', height:'100%',cursor:'pointer'}}/>
+                        <img src={userProfile.profileImage || img} onClick={Edit_prfile_photo} style={{width:'100%', height:'100%',cursor:'pointer'}}/>
                         {profilePhotoEditModal ? <EditProfilePhoto closeModal={closeProfilePhotoEditModal} ProfilePhoto={img}/>:null}
                     </ProfileImage>
                     <ProfileInf>
@@ -150,8 +162,7 @@ export default function Profile(){
                             <span style={{margin:'0 10px'}}>{userInf.nickname}</span>
                             <div>
                                 {userInf.me ? <ProfileEditButton/>: 
-                                    (followed? <UnFollowModal closeUnFollowModal={closeUnFollowModal} followed={followed} userInf={userInf}/> : 
-                                        <NotFollowed onClick={handleFollowing}/>)}
+                                    (followed? <UnFollowModal closeUnFollowModal={closeUnFollowModal} followed={followed} userInf={userInf}/> : <NotFollowed onClick={handleFollowing}/>)}
                             </div>
                         </UsernameInf>
                         <AccountInf>

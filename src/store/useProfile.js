@@ -2,7 +2,16 @@ import { create } from "zustand"
 
 const useProfileStore = create((set)=>(
     {
-        userProfile : {},
+        userProfile : {
+            username: "",
+            nickname: "",
+            profileImage: null,
+            followedCount: 0,
+            followerCount: 0,
+            postCount: 0,
+            postImages: [],
+        },
+        
         getUserProfile : ()=>{
             fetch('http://localhost:8080/api/user',{
                 credentials:'include'
@@ -16,10 +25,20 @@ const useProfileStore = create((set)=>(
                 }
             })
             .then((response)=>{
-                set(()=>({userProfile : {response}}))
+                set(()=>({userProfile : response}))
                 // localStorage.setItem("username",response.username);
             })
+        },
+
+        changeUserProfilePhoto : (newProfilePhoto) => {
+            set((state)=>({
+                userProfile: {
+                    ...state.userprofile,
+                    profileImage : newProfilePhoto
+                }
+            }))
         }
+
     }
 ))
 
