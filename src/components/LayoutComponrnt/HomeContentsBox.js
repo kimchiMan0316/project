@@ -125,7 +125,6 @@ export default function HomeContentsBox({item}){
     const [ likes, setLikes] = useState(post.likes);
     const [ liked, setLiked ] = useState(post.liked);
     const [ countComment, setcountComment] = useState(post.countComment);
-
     const [ editPostModal, setEditPostModal] = useState(false)
     const [ likeListModal, setLikeListModal] = useState(false)
 
@@ -184,9 +183,13 @@ export default function HomeContentsBox({item}){
     // 사용자 경험을 위해서 좋아요, 댓글 갯수 패치보내기 전에 증가시키기
     const countLike = () =>{
         if(liked){
+            post.likes -= 1
+            post.liked = false 
             setLikes((prev)=>prev-1)
             setLiked(false)
         }else if(!liked){
+            post.likes += 1
+            post.liked = true 
             setLikes((prev)=>prev+1)
             setLiked(true)
         }
@@ -216,6 +219,7 @@ export default function HomeContentsBox({item}){
     const closeEditModal = () =>{
         setEditPostModal(false)
     }
+    // 좋아요 리스트 모달
     const isLikeListModal = () =>{
         setLikeListModal(true)
     }
@@ -227,7 +231,7 @@ export default function HomeContentsBox({item}){
             <ProfileLayer>
                 <div style={{height:'100%',justifyContent:"center",display:"flex",alignItems:'center'}}>
                     <ProfilePhoto>
-                        <img src={profile} style={{width:"100%"}}/>
+                        <img src={post.profileImage ||profile} style={{width:"100%"}}/>
                     </ProfilePhoto>
                     <Div style={{display:"flex", flexDirection:"column",height:"100%",alignItems:"start", justifyContent:"center"}}>
                         <Username onClick={moveProfile}>{item.username}</Username>

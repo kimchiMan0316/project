@@ -72,8 +72,10 @@ const ImageBox = styled.div`
     width: auto;
     height: 100%;
 `
-const ImageArray = styled.img`
-    width : ${(props)=>(`${props.width}px`)};
+const ImageArray = styled.div`
+    background-color: black;
+    text-align: center;
+    width : ${(props)=>(`${props.width}px`)}; 
     height: ${(props)=>(`${props.height}px`)};
 `
 
@@ -115,13 +117,18 @@ export default function HomePhotoBox({postImage ,width, height}){
         setMove((prev)=>prev+width)
     }
     const MAX = move+((postImage.length-1)*width)
+    
     return(
         <Wrap>
             <ControllerBox>
                 {postImage.length !== 1 ? <Label move={move}><IoMdPhotos size={20} opacity={0.5}/></Label>:null}
                 <LiftButton onClick={moveRight} move={move}><IoIosArrowBack size={20}/></LiftButton>
                 <ImageBox move={move} width={width} height={height}>
-                    {postImage.map((item,index)=>(<ImageArray key={index} src={item} width={width} height={height} referrerPolicy="no-referrer"/>))}
+                    {postImage.map((item,index)=>(
+                        <ImageArray key={index} src={item} width={width} height={height} referrerPolicy="no-referrer">
+                            <img style={{backgroundSize: 'cover', height:'100%'}}  src={item} referrerPolicy="no-referrer"/>
+                        </ImageArray>
+                        ))}
                 </ImageBox>
                 <RightButton onClick={moveLeft} move={move} MAX={MAX}><IoIosArrowForward size={20}/></RightButton>
                 {postImage.length === 1 ? null:<Counter><Persent persent={((move-width)/-(width*(postImage.length))*100)}></Persent></Counter> }

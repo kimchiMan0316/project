@@ -134,7 +134,7 @@ export default function CommentBox({closeScreen ,comment, postId}){
         <Conteiner>
             <Wrap>
                 <ProfileImage>
-                    <img src={logo} style={{width:"100%",}} onClick={moveProfile}/>
+                    <img src={comment.profilePhoto ||logo} style={{width:"100%",}} onClick={moveProfile}/>
                 </ProfileImage>
                 <ProfileArea>
                     <UserInf>

@@ -40,13 +40,14 @@ const Conteiner = styled.div`
     z-index: 1002;
     border-radius: 16px;
     width: 360px;
-    height: 200px;
-    background-color: aliceblue;
+    height: 180px;
+    background-color: white;
 `
 const Title = styled.div`
     font-weight: 600;
     text-align: center;
     color: black;
+    font-size: 14px;
     padding: 10px 0 ;
     border-bottom:1px solid  #c9c9c9;
 `
@@ -72,7 +73,7 @@ const OptionBox = styled.div`
     }
 `
 const Foot = styled.div`
-    margin-top: 20px;
+    margin-top: 14px;
     font-size: 14px;
     color:#c9c9c9;
     text-align: center;

@@ -165,16 +165,30 @@ export default function EditProfilePhoto({closeModal, profilePhoto}){
                                 )
                             );
                             const canvas = previewCanvasRef.current;
-                            const canvasUrl = canvas.toDataURL()
-                            changeUserProfilePhoto(canvasUrl)
+                            var canvasUrl = canvas.toDataURL()
                             console.log(userProfile)
                             canvas.toBlob((blob)=>{
                                 console.log(userProfile)
                                 const formData = new FormData()
                                 formData.append("image", blob, "image/*");
+                                // formData.append("originalProfilePhoto", userProfile.profileImage)
                                 // 폼데이터 설정한걸 서버로 보내주기
+                                fetch('http://localhost:8080/api/profilePhoto',{
+                                    method:'PUT',
+                                    credentials:'include',
+                                    body: formData,
+                                })
+                                .then((response)=>{
+                                    if(!response.ok){
+                                        alert("프로필 사진 변경 에러")
+                                        setPhoto()
+                                    }
+                                    console.log(response)
+                                    if(response.ok){
+                                        changeUserProfilePhoto(canvasUrl)
+                                    }
+                                })
                             })
-
                             closeModal()
                         }}>확인</Back>
                     </Option>

@@ -42,7 +42,7 @@ const ArticleArea = styled.textarea`
 export default function CreatePostArticle(){
     const {userProfile } = useProfileStore()
     const [article, setArticle] = useState("")
-    const user = userProfile.response;
+    // const user = userProfile.response;
     
     const handleArticle = (e) =>{
         setArticle(e.target.value)
@@ -54,7 +54,7 @@ export default function CreatePostArticle(){
                 <ImageBox>
                     <img src={nerd} style={{width:'100%',height:'100%'}}/>
                 </ImageBox>
-                <Username>{user.username}</Username>
+                <Username>{userProfile.username}</Username>
             </UserBox>
             <ArticleArea placeholder="글을 작성해주세요..." value={article} onChange={handleArticle}>
 

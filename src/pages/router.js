@@ -12,6 +12,7 @@ import { fetchProfileInf } from "../utills/getProfileInf";
 import EditProfile from "./page/editProfile";
 import ErrorPage from "./page/ErrorPage";
 import HomePhotoBox from "../components/LayoutComponrnt/homePhoto";
+import CreatePostModal from "../components/modalComponent/createPostModal/createPostModal";
 
 export const router = createBrowserRouter([
     {
@@ -60,6 +61,6 @@ export const router = createBrowserRouter([
     },
     {
         path:'/maruta',
-        element:<HomePhotoBox/>
+        element:<CreatePostModal/>
     }
 ])

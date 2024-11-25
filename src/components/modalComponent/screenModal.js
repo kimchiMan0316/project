@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import logo from "../../assets/image/untityLogo.png"
 import HomePhotoBox from "../LayoutComponrnt/homePhoto";
 import { GoPlusCircle } from "react-icons/go";
+import LikeListModal from "./likeLIst";
 
 const Wrap = styled.div`
     z-index: 1000;
@@ -158,6 +159,7 @@ export default function Screen({closeScreen, post}){
     const [ likes, setLikes] = useState(post.likes);
     const [ liked, setLiked ] = useState(post.liked);
     const [ editPost, setEditPost ] = useState(false);
+    const [ likeListModal, setLikeListModal ] = useState(false)
     const [ offset, setOffset ] = useState(10)
     const navigate = useNavigate();
     
@@ -269,6 +271,10 @@ export default function Screen({closeScreen, post}){
             setOffset(prev=>prev+10)
         })
     }
+    // 좋아요 모달 닫기
+    const closeLikeModal = () =>{
+        setLikeListModal(false)
+    }
     return(
         <Wrap>
             <CloseBox onClick={closeScreen}></CloseBox>
@@ -280,7 +286,7 @@ export default function Screen({closeScreen, post}){
                     <ProfileArea>
                         <div style={{display:'flex'}}>
                             <ProfileArea name="profile" style={{cursor:'pointer'}}  onClick={moveProfile}>
-                                <img src={logo} style={{width:"100%"}}/>
+                                <img src={post.profileImage ||logo} style={{width:"100%"}}/>
                             </ProfileArea>
                             <div style={{display:'flex',flexDirection:"column", cursor:'pointer'}} onClick={moveProfile}>
                                 <span style={{fontWeight:"600"}}>{post.username}</span>
@@ -319,7 +325,8 @@ export default function Screen({closeScreen, post}){
                                 </Label>
                             </div>
                         </ButtonArea>
-                        <span style={{margin: '6px 10px'}}>좋아요 {likes}</span>
+                        {likes > 0 ? <span style={{margin: '6px 10px'}} onClick={()=>{setLikeListModal(true)}}>좋아요 {likes}</span>:<span style={{margin: '6px 10px',fontSize:'15px'}}> 불우한 이웃에게 조금의 관심을!</span>}
+                        {likeListModal ? <LikeListModal closeModal={closeLikeModal} postId={post.id}/>:null}
                         <ButtonArea name="inputArea" onSubmit={createComment}>
                             <LoginInput type="text" id="comment" width="400px" height="30px" border="none" placeholder="댓글 쓰기 . . ." value={review} onChange={changereView}/>
                             <LoginInput type="submit" height="30px" width="50px" backgroundColor="white" color={review ? "rgb(74 84 194)":"#b1b0b0"} fontWeight="700" value="확인" placeholder="댓글 작성" border="none"/>

@@ -116,7 +116,7 @@ export default function LikeListModal({closeModal, postId}){
             <Conteiner>
                 <Title>좋아요</Title>
                 <List>
-                    {loading ? (likeList.map((item, index)=>(<LikeListBox item={item} key={index}/>))):"loading"}
+                    {loading || [] ? (likeList.map((item, index)=>(<LikeListBox item={item} key={index}/>))):"loading"}
                 </List>
             </Conteiner>
         </Wrap>

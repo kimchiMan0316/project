@@ -11,11 +11,15 @@ const usePost = create((set)=>(
             })
             .then((response)=>{
                 if (!response.ok) {
-                    throw new Error(`HTTP error! Status: ${response.status}`);
+                    // throw new Error(`HTTP error! Status: ${response.status}`);
+                    return;
                 }
                 return response.json()
             })
             .then((data)=>{
+                if(!data){
+                    return
+                }
                 console.log(data)
                 set((state)=>({post: [...state.post,...data]}))
                 set((state)=>({offset : state.offset + 10}))

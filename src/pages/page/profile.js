@@ -5,7 +5,6 @@ import ProfilePostPhotoBox from "../../components/LayoutComponrnt/ProfilePostPho
 import FollowModal from "../../components/modalComponent/followModal";
 import ProfileEditButton from "../../components/button/profileEditButton";
 import UnFollowModal from "../../components/modalComponent/unFollowModal";
-
 import img from "../../assets/image/nerd.JPEG"
 import EditProfilePhoto from "../../components/modalComponent/editProfile_photo/profilePhotoEdit";
 import useProfileStore from "../../store/useProfile";

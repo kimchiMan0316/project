@@ -15,6 +15,9 @@ import CreatePostModal from "../../components/modalComponent/createPostModal/cre
 import logoImg from "../../assets/image/untityLogo.png"
 import OptionModal from "../../components/modalComponent/sideModal/optionModal";
 import MoreButtonModal from "../../components/modalComponent/sideModal/moreButtonModal";
+import { CiSquarePlus } from "react-icons/ci";
+import { AiOutlinePlusSquare } from "react-icons/ai";
+import { BsPlusSquare } from "react-icons/bs";
 
 
 
@@ -72,6 +75,7 @@ export default function Layout(){
     const [createPostModal, setCreatePostModal] = useState(false)
     const [ optionModal, setOptionModal] = useState(false)
     const [ moreButtonModal, setMoreButtonModal] = useState(false)
+    const [ chat , setChat ] = useState(false)
     
     // 사용자 프로필 전역으로 받아오기
     useEffect(()=>{
@@ -99,20 +103,26 @@ export default function Layout(){
     const closeMoreButtonModal = () =>{
         setMoreButtonModal(false)
     }
-    
+    // 채팅방 핸들러
+    const handleChat = () =>{
+        setChat(true)
+    }
+    const noChat = () =>{
+        setChat(false)
+    }
     return(
         <Wrap>
             <TopLayout>
                 <Top>
                     <img src={logoImg} style={{width: "50%", margin:"20px 0", cursor:"pointer"}} />
-                    <ButtonComponent value="홈" icon={<AiFillHome size={24}/>} onClick={()=>{navigate("/")}}/>
+                    <ButtonComponent value="홈" icon={<AiFillHome size={24}/>} onClick={()=>{navigate("/");noChat()}}/>
                     <ButtonComponent value="검색" icon={<FiSearch size={24}/>} onClick={searchModal} />
-                    <ButtonComponent value="채팅" icon={<IoChatbubbleOutline size={24}/>}  onClick={()=>{navigate("/chat")}}/>
+                    <ButtonComponent value="채팅" icon={<IoChatbubbleOutline size={24}/>}  onClick={()=>{navigate("/chat");handleChat()}}/>
                     <ButtonComponent value="알림" icon={<IoIosHeartEmpty size={24}/>}/>
-                    <ButtonComponent value="게시글 작성" icon={<LuPlusSquare size={24} />} onClick={openCreatePostModal}/>
+                    <ButtonComponent value="게시글 작성" icon={<AiOutlinePlusSquare  size={24} />} onClick={openCreatePostModal}/>
                     <Conteiner>
                         <P>개인설정</P>
-                        <ButtonComponent value="프로필" icon={<Profile ProfileImage={userProfile.ProfileImage}/>}  onClick={()=>{navigate("/profile")}}/>
+                        <ButtonComponent value="프로필" icon={<Profile image={userProfile.profileImage || ""}/>}  onClick={()=>{navigate("/profile");noChat()}}/>
                     </Conteiner>
                 </Top>
                 <Bottom>
@@ -121,7 +131,9 @@ export default function Layout(){
                 </Bottom>
             </TopLayout>
             <Outlet/>
-            <BottomLayout >
+            
+            {/* 디스플레이 너비가 작아지면 아웃되도록 설정 */}
+            {chat ? null:<BottomLayout >
                 <Box>
                     <P style={{marginTop:'16px'}}>추천 사이트</P>
                     <BottomLayout>
@@ -145,7 +157,8 @@ export default function Layout(){
                         </div>
                     </BottomLayout>
                 </Box>
-            </BottomLayout>
+            </BottomLayout>}
+            
             {modal != null ? modal :null}
             { createPostModal ? <CreatePostModal closeModal={closeCreatePostModal}/>:null}
             { optionModal ? <OptionModal closeModal={closeOptionModal}/>:null}
@@ -154,7 +167,7 @@ export default function Layout(){
     )
 }
 
-const Profile = ({profileImage}) =>{
+const Profile = ({image}) =>{
     return(
         <div style={{
             border:"1px solid black",
@@ -162,7 +175,7 @@ const Profile = ({profileImage}) =>{
             width:"26px",
             height:"26px"
         }}>
-            <img style={{width:"100%"}} src={profileImage || logoImg}/>
+            <img style={{width:"100%"}} src={image || logoImg}/>
         </div>
     )
 }

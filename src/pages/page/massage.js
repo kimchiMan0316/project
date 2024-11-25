@@ -1,9 +1,10 @@
 import { Client } from "@stomp/stompjs"
 import { useEffect, useState } from "react"
 import styled from "styled-components"
+import ChatRoomBoxsLayout from "../../components/chat/components/layout/chatRoomBoxsLayout"
 
 const Wrap = styled.div`
-    padding-left: 250px;
+    padding-left: 500px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -101,7 +102,7 @@ export default function Message(){
 
     },[])
 
-    // 메세지 보내기 오류나면 줫댐 오류 처림 없음
+    // 메세지 보내기 오류나면 좆댐 오류 처림 없음
     const sendMessage = (e)=>{
         e.preventDefault();
         if(connect && input.trim()){
@@ -118,6 +119,7 @@ export default function Message(){
 
     return(
        <Wrap>
+            <ChatRoomBoxsLayout/>
             <MessageConteiner>
                 {messages.map((item, index)=>(<MessageBox key={index}>{item}</MessageBox>))}
             </MessageConteiner>

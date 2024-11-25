@@ -70,8 +70,8 @@ const KakaoLogin = styled.div`
     }
 `
 export default function Login(){
-    const [id, setId] = useState()
-    const [password, setPassword] = useState()
+    const [id, setId] = useState("")
+    const [password, setPassword] = useState("")
     const navigate = useNavigate()
     
     const Session = localStorage.getItem('username')
@@ -125,7 +125,7 @@ export default function Login(){
                 return response.json()
             }else{
                 alert("로그인 정보를 다시 확인해주세요.")
-                return;
+                return ;
             }
         })
         .then((response)=>{
