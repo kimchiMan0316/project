@@ -16,7 +16,7 @@ const Button = styled.button`
     padding: 10px 16px;
     background-color: white;
     &:hover{
-        background-color: #d9d9d9;
+        background-color: #ededed;
     }
 `
 const P = styled.span`

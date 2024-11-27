@@ -16,7 +16,7 @@ import profile from "../../assets/image/profile.jpeg"
 const Wrap = styled.div`
     width: 500px;
     height: auto;
-    border: 1px solid black;
+    border: 1px solid #ededed;
     margin: 5px 0;
 `
 const ProfileLayer = styled.div`

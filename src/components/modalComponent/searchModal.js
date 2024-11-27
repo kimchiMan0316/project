@@ -74,7 +74,7 @@ export default function SearchModal({closeModal}){
         const username = search;
         setSearchState(false)
         const getSearchInf = async() =>{
-            const response = await fetch(`http://localhost:8080/api/users?username=${username}`)
+            const response = await fetch(`http://localhost:8080/api/users/0?username=${username}`)
             const result = await response.json()
             if(!result){
                 return;

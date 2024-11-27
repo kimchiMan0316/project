@@ -12,8 +12,12 @@ const Wrap = styled.div`
 `
 const PostImageBox = styled.div`
     position: relative;
+    background-color: #1b1d23;
     width: 250px;
     height: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border: none;
     cursor: pointer;
     &:hover{
@@ -21,8 +25,8 @@ const PostImageBox = styled.div`
     }
 `
 const Img = styled.img`
-    width: 100%;
-    height: 100%;
+    max-width: 250px;
+    max-height: 250px;
 `
 const Icon = styled.div`
     position: absolute;
@@ -36,6 +40,7 @@ const Icon = styled.div`
 export default function ProfilePostPhotoBox({postImage}){
     const [ modal, setModal] = useState(false)
     const [ post, setPost ] = useState()
+    const [ imageStyles , setImageStyles] = useState({})
     
     console.log('props',postImage)
 
@@ -56,21 +61,25 @@ export default function ProfilePostPhotoBox({postImage}){
             console.log(response)
             setModal(true)
         })
-        // fetch(`http://localhost:8080/api/comment/${postId}/0`,{
-        //     credentials:'include'
-        // })
-        // .then((response)=>{
-        //     if(response){
-        //         return response.json()
-        //     }else{
-        //         console.log('error')
-        //     }
-        // })
-        // .then((response)=>{
-        //     setComment(response)
-        // })
     }
 
+    const onLoadImg = (e) =>{
+        const { naturalHeight, naturalWidth } = e.target;
+        
+        const newStyle = 
+            naturalHeight> naturalWidth
+            ? { height: '100%', width: 'auto' }
+            : naturalHeight < naturalWidth
+            ? { height: 'auto', width: '100%' }
+            : { width: '100%', height: '100%' };
+
+            setImageStyles((prevStyles)=>({
+                ...prevStyles,
+                [e.target.id] : newStyle,
+            }));
+        
+    }
+    
     const closeModal = () =>{
         setModal(false)
         setPost({})
@@ -79,7 +88,7 @@ export default function ProfilePostPhotoBox({postImage}){
         <Wrap>
             {postImage.map((item)=>
                 (<PostImageBox key={item.postId}>
-                    <Img src={item.postImage} alt="error" onClick={getPostInf} id={item.postId}/>
+                    <Img src={item.postImage} alt="error" onClick={getPostInf} style={imageStyles[item.postId]}  onLoad={onLoadImg} id={item.postId}/>
                     {item.mixed ? <Icon>< IoMdPhotos size={20} opacity={0.7} color="white"/></Icon>:null}
                 </PostImageBox>))}
                 {modal ? <Screen closeScreen={closeModal} post={post}/>:null}

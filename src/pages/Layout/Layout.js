@@ -4,7 +4,6 @@ import ButtonComponent from "../../components/button/button"
 import { AiFillHome } from "react-icons/ai";
 import { FiSearch } from "react-icons/fi";
 import { IoChatbubbleOutline } from "react-icons/io5";
-import { LuPlusSquare } from "react-icons/lu";
 import { IoMdOptions } from "react-icons/io";
 import { SlOptions } from "react-icons/sl";
 import SearchModal from "../../components/modalComponent/searchModal";
@@ -15,11 +14,7 @@ import CreatePostModal from "../../components/modalComponent/createPostModal/cre
 import logoImg from "../../assets/image/untityLogo.png"
 import OptionModal from "../../components/modalComponent/sideModal/optionModal";
 import MoreButtonModal from "../../components/modalComponent/sideModal/moreButtonModal";
-import { CiSquarePlus } from "react-icons/ci";
 import { AiOutlinePlusSquare } from "react-icons/ai";
-import { BsPlusSquare } from "react-icons/bs";
-
-
 
 const Wrap = styled.div`
     display: flex;
@@ -122,7 +117,7 @@ export default function Layout(){
                     <ButtonComponent value="게시글 작성" icon={<AiOutlinePlusSquare  size={24} />} onClick={openCreatePostModal}/>
                     <Conteiner>
                         <P>개인설정</P>
-                        <ButtonComponent value="프로필" icon={<Profile image={userProfile.profileImage || ""}/>}  onClick={()=>{navigate("/profile");noChat()}}/>
+                        <ButtonComponent value={userProfile ?  userProfile.nickname:""} icon={<Profile image={userProfile ? userProfile.profileImage:""}/>}  onClick={()=>{navigate("/profile");noChat()}}/>
                     </Conteiner>
                 </Top>
                 <Bottom>
